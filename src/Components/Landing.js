@@ -38,22 +38,10 @@ export const  Landing = () => {
             >
               <ul className="navbar-nav">
                 <li className="nav-item">
-                <Link
-                  type="button"
-                  className="btn btn-outline-info btn-lg signUpBtn"
-                  to="/login"
-                >
-                  Login Up
-                </Link>
-                
-                  <a className="nav-link" aria-current="page" href="/login">
-                    Log In
-                  </a>
+                <Link type="text" className="nav-link" to="/login">Login</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/signup">
-                    Sign Up
-                  </a>
+                  <Link type="text" className="nav-link" to="/signup">SignUp</Link>
                 </li>
               </ul>
             </div>
