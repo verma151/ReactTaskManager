@@ -3,6 +3,7 @@ import { Icon } from 'react-icons-kit'
 import {xCircle} from 'react-icons-kit/feather/xCircle'
 import { authentication, database } from '../Config/Config';
 
+
 export const Modal = ({editTodoValue,editModal, updateTodoHandler}) => {
 
     const [editTodo,setEditTodo]=useState(editTodoValue.Todo);
@@ -17,6 +18,7 @@ export const Modal = ({editTodoValue,editModal, updateTodoHandler}) => {
     const handleEditTodoSubmit=(e)=>{
         e.preventDefault();
         handleClose();
+        /*Real time updation on the frontend*/
         updateTodoHandler(editTodo,editDate,editStatus,editTodoValue.id);
         authentication.onAuthStateChanged(user=>{
             if(user){
@@ -27,7 +29,7 @@ export const Modal = ({editTodoValue,editModal, updateTodoHandler}) => {
                 })
             }
             else{
-                console.log('user is not signed in to update todo')
+                console.log('user is not signedin to update todo')
             }
         })
     }

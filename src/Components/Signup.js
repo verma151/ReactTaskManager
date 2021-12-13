@@ -2,16 +2,15 @@ import React,{useState} from "react";
 import {Link} from 'react-router-dom';
 import {authentication, database} from '../Config/Config'
 
-/*props is nothing but a session variable to store the data*/
+/*props is nothing but a properties passed to the component*/
 export const Signup = (props) => {
 
     const [fullName, setFullName]=useState('');
     const [email, setEmail]=useState('');
     const [password, setPassword]=useState('');
-
     const [registerationError, setRegisterationError]=useState('');
     
-    /*After Creating Credentials of User Create users database*/
+    /*After Creating Credentials of firestore Create users database*/
     const handleRegister=(e)=>{
         e.preventDefault();
         authentication.createUserWithEmailAndPassword(email, password).then((cred)=>{
@@ -24,6 +23,8 @@ export const Signup = (props) => {
                 setEmail('');
                 setPassword('');
                 setRegisterationError('');
+                /*If the new user is register it will redirected to login page  
+                */
                 props.history.push('/login');
             }).catch(error=>setRegisterationError(error.message))
         })
@@ -60,7 +61,7 @@ export const Signup = (props) => {
                REGISTER
             </button>
         </form>
-        
+ 
         {registerationError&&<div className='error-msg'>
                 {registerationError}
                 </div>}

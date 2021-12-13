@@ -2,7 +2,9 @@ import React,{useState} from "react";
 import {Link} from 'react-router-dom';
 import {authentication} from '../Config/Config';
 
-/*props is nothing but a session variable to store the data*/
+
+
+/*props is nothing but a properties passed to the component*/
 export const Login = (props) => {
 
     const [email, setEmail]=useState('');
@@ -16,6 +18,7 @@ export const Login = (props) => {
             setEmail('');
             setPassword('');
             setLoginError('');
+            /*If the user is register it will redirected to login page  */
             props.history.push('/home');
         }).catch(error=>setLoginError(error.message))
     }
@@ -45,6 +48,10 @@ export const Login = (props) => {
                LOGIN
             </button>
         </form>
+
+        {/*So here conditional rendring is done so when user is logged in
+        he/she can able the see the todolist what they have added into the stack
+        otherwise it will show login to use application*/}
         {loginError&&<div className='error-msg'>
             {loginError}
         </div>}

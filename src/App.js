@@ -16,10 +16,8 @@ export class App extends Component {
     todos:[],
     editTodoValue: null
   }
-
+  
   componentDidMount(){
-
-    //For getting the current user
     authentication.onAuthStateChanged(user=>{
       if(user){
         database.collection('users').doc(user.uid).get().then(snapshot=>{
@@ -33,10 +31,11 @@ export class App extends Component {
       }
     })
 
-    //Retriving the task from the current user
+    //Retriving the todo's from the current user
     authentication.onAuthStateChanged(user=>{
       if(user){
         const todoList=this.state.todos;
+        //console.log(todoList);
         database.collection('todos of '+user.uid).onSnapshot(snapshot=>{
           let changes = snapshot.docChanges();
           changes.forEach(change=>{
@@ -58,7 +57,7 @@ export class App extends Component {
                 }
               }
             }
-
+         
             this.setState({
               todos: todoList
             })
@@ -72,6 +71,7 @@ export class App extends Component {
     
   }
   //Deleting individual task w/r to id
+  
   deleteTodo=(id)=>{
     // console.log(id);
     authentication.onAuthStateChanged(user=>{
@@ -84,14 +84,14 @@ export class App extends Component {
     })
   }
 
-  //Set the Sate of EditModal null after updatation 
+  //updating todos in the modal box saving the data into object. The object is hold by editModal  
   editModal=(obj)=>{
     this.setState({
       editTodoValue: obj
     })
   }
 
-    //RealTime Updation of Task
+    //RealTime Updation of Task through todo id in database
   updateTodoHandler=(editTodo,editDate,editStatus,id)=>{
     // console.log(editTodo, id);
     const todoList = this.state.todos;
@@ -100,21 +100,21 @@ export class App extends Component {
         todoList.splice(i,1,{id,Todo: editTodo,expectedDate:editDate,currentStatus:editStatus});
 
       }
-      /*Set Todos to null otherwise previous updated value will be enter in the new todo*/  
       this.setState({
         todos: todoList
       })
     }
   }
 
-
+  
   render(){
-    console.log(this.state.todos);
+    //console.log(this.state.todos);
     return (
       <Router>
         <Switch>
           <Route path='/landing' component={Landing}/>
-          <Route exact path='/home' component={()=><Home
+          <Route exact path='/home' component={()=>
+          <Home
           currentUser={this.state.currentUser}
           todos={this.state.todos}
           deleteTodo={this.deleteTodo}
@@ -126,7 +126,6 @@ export class App extends Component {
           <Route path='/login' component={Login}/>
           <Route path="*" component={Landing}/>
           <Route component={NotFound}/>
-          
           
         </Switch>
       </Router>

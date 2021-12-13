@@ -3,15 +3,15 @@ import todoLogo from '../images/todo-list.png';
 import {Link} from 'react-router-dom';
 import {authentication} from '../Config/Config';
 
-
+/*Here we are passing currectUser as a parameter to the header Component*/
 export const Header=({currentUser})=>{
-    /*Initialization of useState Variables*/
     const [date, setDate]=useState(null);
     const [month, setMonth]=useState(null);
     const [year, setYear]=useState(null);
     const [day, setDay]=useState(null);
 
-    /*Fetching the current Date for Display on Home*/ 
+    
+   /*Fetching the current Date for Display on Home*/ 
     useEffect(()=>{
         const myDate = new Date();
         const myMonth = myDate.toLocaleString('default', { month: 'long' });
@@ -24,13 +24,14 @@ export const Header=({currentUser})=>{
         setDay(myDay);
     },[])
 
+    
     const handleLogout=()=>{
       authentication.signOut().then(()=>{
           window.location.reload();
       });
   }
 
-
+   
     return(
         <div className='header-box'>
         <div className='leftside'>
@@ -47,7 +48,9 @@ export const Header=({currentUser})=>{
                 </div>
             </div>
             <div className='rightside'>
+              
             {!currentUser&&<>
+                    
                     <Link className='btn btn-primary btn-md' to="signup">
                      SIGN UP
                     </Link>
@@ -55,16 +58,15 @@ export const Header=({currentUser})=>{
                      LOGIN
                     </Link>
                   <br></br>
+                 
                   <div className='date-section'>
                       <span>{date}</span>
                       <span>{month}</span>
                       <span>{year}</span>
                       <span>{day}</span>
                   </div>
-                 
                 </>}
                 {currentUser&&<div className='welcome-div'>
-
                     <h2>WELCOME</h2>
                     <h5>{currentUser}</h5>
                     <br></br>

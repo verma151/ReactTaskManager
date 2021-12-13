@@ -8,6 +8,8 @@ import Progress from "../images/progressChart.png";
 import Complete from "../images/completed.png";
 import { Link } from "react-router-dom";
 
+
+
 export const  Landing = () => {
     return (
       <div className="pageBody">
@@ -15,7 +17,7 @@ export const  Landing = () => {
           <div className="container">
             <img
               src={LogoImage}
-              alt="OpTask Logo"
+              alt="TaskManager Logo"
               style={{ height: "100px", width: "100px" }}
             />
             <h3 className="navbar-nav linkText" href="/">

@@ -11,7 +11,7 @@ export const Home = ({currentUser, todos, deleteTodo,editTodoValue,editModal,upd
     const [status, setStatus]=useState('Incomplete');
     const [todoError, setTodoError]=useState('');
     
-
+    
     const handleTodoSubmit=(e)=>{
         e.preventDefault();
         authentication.onAuthStateChanged(user=>{
@@ -22,26 +22,26 @@ export const Home = ({currentUser, todos, deleteTodo,editTodoValue,editModal,upd
                     Todo: todo,
                     expectedDate: date,
                     currentStatus: status 
+                   
                 }).then(setTodo('')).catch(error=>setTodoError(error.message))
             }
             else{
-                console.log('User is not signed in to add todo to database');
+                console.log('User is not signed in to add the todo to database');
             }
-
         })
     }
 
 
     return(
         <div className='wrapper'>
+        
             <Header currentUser={currentUser}/>
             <br></br>
-          <br></br>
+            <br></br>
           <div className='container'>
             <form autoComplete='off' className='form-group'
-            onSubmit={handleTodoSubmit}
-            >
-
+            onSubmit={handleTodoSubmit}>
+             
             {currentUser&&<>
               <input type="date" className='form-control' required
                 onChange={(e)=>setDate(e.target.value)}
@@ -63,14 +63,17 @@ export const Home = ({currentUser, todos, deleteTodo,editTodoValue,editModal,upd
               </div>
             </>}
 
-
+             
             {!currentUser&&<>
-              <input type="text" placeholder="Enter TODO's"
-                className='form-control' required disabled
+
+              <input type="date" className='form-control' required disabled
               />
               <br></br>
+              <input type="text" placeholder="Enter TODO's"
+                className='form-control' required disabled/>
+              <br></br>
               <div style={{width: 100+'%',
-              display: 'flex',justifyContent: 'flex-end'}}>
+                display: 'flex',justifyContent: 'flex-end'}}>
                 <button type="submit" className='btn btn-success'
                 disabled style={{width: 100+'%'}}>
                    ADD
@@ -80,16 +83,22 @@ export const Home = ({currentUser, todos, deleteTodo,editTodoValue,editModal,upd
                 Please register your account or login to use application
               </div>
             </>}
-            
             </form>
-            
-            {todoError&&<div className='error-msg'>{todoError}
-            </div>}
-            <Todos todos={todos} deleteTodo={deleteTodo} 
+          
+            {todoError&&<div className='error-msg'>{todoError}</div>}
+         
+            <Todos 
+            todos={todos} 
+            deleteTodo={deleteTodo} 
             editModal={editModal}/>
+ 
             </div>
-             {editTodoValue&&<Modal editTodoValue={editTodoValue}
-             editModal={editModal} updateTodoHandler={updateTodoHandler}
+           
+             {editTodoValue&&
+            <Modal 
+             editTodoValue={editTodoValue}
+             editModal={editModal} 
+             updateTodoHandler={updateTodoHandler}
             />}
         </div>
     )
